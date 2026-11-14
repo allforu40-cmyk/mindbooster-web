@@ -16,3 +16,8 @@
   for = "/assets/social/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/assets/social/send.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
