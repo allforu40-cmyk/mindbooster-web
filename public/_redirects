@@ -1,0 +1,7 @@
+# Old Wix addresses that should keep working
+/insights/categories/*      /insights                301
+/es/insights/categories/*   /es/insights             301
+/blog                       /insights                301
+/es/blog                    /es/insights             301
+/home                       /                        301
+/es/home                    /es/                     301

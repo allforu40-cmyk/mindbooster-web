@@ -1,0 +1,21 @@
+# local-name  wix-media-file  max-size
+logo.png              2fe109_c05b0e6df0ea418e83ff177110de327f~mv2.png   600
+home-hero.png         c837a6_3852ddf135a044d8abb5b899e429de06f000.png   1600
+home-build.jpg        c837a6_5e19bd47c2dc45398993d8c780db299a~mv2.jpg   1600
+home-services.jpg     c837a6_84362f37497046e881dba2e96bbb9d76~mv2.jpg   1600
+home-consulting.jpg   c837a6_6c7ced7e924441dc8380245f1a0e9d4b~mv2.jpg   1600
+svc-strategy.jpg      2fe109_e88a0fc1c2fe4e558c5828a270847c59~mv2.jpg   1400
+svc-software.jpg      2fe109_e075c25a62544a44aeb75d2c88170d93~mv2.jpg   1400
+svc-consulting.jpg    c837a6_650c3d880f99434dbc32154c5c9fe2cd~mv2.jpg   1400
+svc-hospitality.jpg   c837a6_200cfd06635a4e30b1183c0bbbdee565~mv2.jpg   1400
+about-who.jpg         2fe109_47b57f73585641cda50f1529bf673177~mv2.jpg   1200
+about-journey.jpg     2fe109_d029850904c04627b1890f64b213582e~mv2.jpg   1200
+about-mission.jpg     2fe109_d8283db062e340bb95c76dc53d99899d~mv2.jpg   1200
+about-expertise.jpg   2fe109_9400a7f78e9247879c8b9acff855a8c8~mv2.jpg   1200
+about-values.jpg      2fe109_e075c25a62544a44aeb75d2c88170d93~mv2.jpg   1200
+p-chingolandia.png    bbaa89_2bfc4354b9fd4b618aac0495fccd8525~mv2.png   800
+p-mosty.png           bbaa89_c8c4de843b4a454da542b4971bb6b541~mv2.png   800
+p-devoctura.png       bbaa89_d505bde4b79d4bbc9683fb9042e66dc0~mv2.png   800
+p-nexasmus.png        bbaa89_c0d3cac24b594e6f84363396214aebb2~mv2.png   800
+p-changarro.png       bbaa89_dd358da359e743f09ef733f67271d4c8~mv2.png   800
+p-seekers.png         bbaa89_46cdc4a4e67d400ba528dfb987b1abda~mv2.png   800

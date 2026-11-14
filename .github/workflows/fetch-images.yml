@@ -1,0 +1,38 @@
+# One-off helper: copies the site's images from the old Wix media library into
+# public/assets/img so the site no longer depends on Wix. Run it from the Actions tab
+# ("Run workflow"); it commits any image that is missing and skips the rest.
+name: Fetch images from Wix
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - public/assets/img/images.txt
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and resize missing images
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick >/dev/null
+          cd public/assets/img
+          grep -v '^#' images.txt | while read -r name file size; do
+            [ -z "$name" ] && continue
+            if [ -f "$name" ]; then echo "have $name"; continue; fi
+            curl -fsSL "https://static.wixstatic.com/media/$file" -o "tmp-$name"
+            convert "tmp-$name" -resize "${size}x${size}>" -strip -quality 82 "$name"
+            rm -f "tmp-$name"
+            echo "fetched $name"
+          done
+      - name: Commit images
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add public/assets/img
+          git diff --cached --quiet || git commit -m "Add site images copied from Wix"
+          git push
