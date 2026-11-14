@@ -1,6 +1,5 @@
 # local-name  wix-media-file  max-size
 logo.png              2fe109_c05b0e6df0ea418e83ff177110de327f~mv2.png   600
-home-hero.png         c837a6_3852ddf135a044d8abb5b899e429de06f000.png   1600
 home-build.jpg        c837a6_5e19bd47c2dc45398993d8c780db299a~mv2.jpg   1600
 home-services.jpg     c837a6_84362f37497046e881dba2e96bbb9d76~mv2.jpg   1600
 home-consulting.jpg   c837a6_6c7ced7e924441dc8380245f1a0e9d4b~mv2.jpg   1600

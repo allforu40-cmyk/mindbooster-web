@@ -49,7 +49,7 @@ def header(lang, slug, alt_href):
     return f"""<a class="skip" href="#main">{esc(t['skip'])}</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="{url(lang, '')}" aria-label="Mind Booster"><img src="/assets/img/logo.png" alt="Mind Booster" width="180" height="40"></a>
+    <a class="brand" href="{url(lang, '')}" aria-label="Mind Booster"><img src="/assets/img/logo.png" alt="Mind Booster" width="206" height="40"></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">{esc(t['menu'])}</button>
     <nav class="nav" id="nav" aria-label="{esc(t['menu'])}">
       {''.join(items)}
@@ -172,7 +172,7 @@ def home(lang):
     news = "".join(post_card(lang, p) for p in posts_for(lang)[:3])
     body = f"""<section class="hero"><div class="wrap split">
   <div><h1>{esc(c['h1'])}</h1><p class="lead">{esc(c['lead'])}</p><p style="margin-top:28px">{btn(lang, 'contact', c['cta'])}</p></div>
-  <img src="/assets/img/home-hero.png" alt="" width="800" height="600">
+  <img src="/assets/img/home-services.jpg" alt="" width="800" height="600">
 </div></section>
 <section class="section"><div class="wrap grid c3">{steps}</div></section>
 <section class="section soft"><div class="wrap split">
@@ -181,7 +181,7 @@ def home(lang):
 </div></section>
 <section class="section"><div class="wrap"><h2>{esc(c['industries_h'])}</h2><div class="grid c3">{inds}</div></div></section>
 <section class="section soft"><div class="wrap">
-  <div class="split"><div><h2>{esc(c['services_h'])}</h2><p class="muted">{esc(c['services_lead'])}</p>{btn(lang, 'solutions', c['services_btn'])}</div><img src="/assets/img/home-services.jpg" alt="" loading="lazy" width="800" height="600"></div>
+  <div class="split"><div><h2>{esc(c['services_h'])}</h2><p class="muted">{esc(c['services_lead'])}</p>{btn(lang, 'solutions', c['services_btn'])}</div><img src="/assets/img/svc-strategy.jpg" alt="" loading="lazy" width="800" height="600"></div>
   <div class="grid c3" style="margin-top:32px">{svcs}</div>
 </div></section>
 <section class="section"><div class="wrap"><h2>{esc(c['news_h'])}</h2><div class="post-list">{news}</div><p style="margin-top:20px">{btn(lang, 'insights', c['news_btn'], True)}</p></div></section>"""
