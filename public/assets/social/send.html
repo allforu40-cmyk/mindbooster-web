@@ -2,7 +2,7 @@
 <script>
 const f=(new URLSearchParams(location.search).get('f')||'').split(',').filter(Boolean);
 Promise.all(f.map(n=>fetch('/assets/social/'+n,{cache:'no-store'}).then(r=>r.blob()).then(b=>({name:n,blob:b})))).then(arr=>{
-  let tries=0;const send=()=>{ if(window.opener){window.opener.postMessage({mbFiles:arr},'*');} document.body.textContent='sent '+arr.length+' ('+(++tries)+')'; };
+  let tries=0;const send=()=>{ const tg=window.opener||(window.parent!==window?window.parent:null); if(tg){tg.postMessage({mbFiles:arr},'*');} document.body.textContent='sent '+arr.length+' ('+(++tries)+')'; };
   send(); const t=setInterval(()=>{send(); if(tries>10){clearInterval(t);}},700);
   window.addEventListener('message',e=>{if(e.data==='mb-ok'){clearInterval(t);document.body.textContent='done';setTimeout(()=>window.close(),300);}});
 });
