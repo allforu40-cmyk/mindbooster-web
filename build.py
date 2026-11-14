@@ -6,7 +6,7 @@ All page text lives in content.py; this file only turns it into HTML.
 import html
 import json
 import os
-from content import SITE, PAGES, POSTS, PROJECTS, NAV, UI
+from content import SITE, PAGES, POSTS, PROJECTS, NAV, UI, CUSTOM_AI
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "public")
 BASE = "https://www.mbco.es"
@@ -174,6 +174,7 @@ def home(lang):
   <div><h1>{esc(c['h1'])}</h1><p class="lead">{esc(c['lead'])}</p><p style="margin-top:28px">{btn(lang, 'contact', c['cta'])}</p></div>
   <img src="/assets/img/home-services.jpg" alt="" width="800" height="600">
 </div></section>
+<section class="section band"><div class="wrap band-in"><div><p class="eyebrow">{esc(CUSTOM_AI[lang]['eyebrow'])}</p><h2>{esc(CUSTOM_AI[lang]['home_h'])}</h2><p>{esc(CUSTOM_AI[lang]['home_p'])}</p></div><p>{btn(lang, 'custom-ai-solutions', CUSTOM_AI[lang]['home_btn'])}</p></div></section>
 <section class="section"><div class="wrap grid c3">{steps}</div></section>
 <section class="section soft"><div class="wrap split">
   <img src="/assets/img/home-build.jpg" alt="{esc(c['story_alt'])}" loading="lazy" width="800" height="600">
@@ -195,6 +196,7 @@ def solutions(lang):
         rev = " rev" if i % 2 else ""
         blocks += f'<div class="split{rev}"><div><h3>{esc(b["h"])}</h3>{paras(b["p"])}</div><img src="/assets/img/{b["img"]}" alt="{esc(b["h"])}" loading="lazy" width="700" height="525"></div>'
     body = f"""<section class="hero"><div class="wrap"><p class="eyebrow">{esc(c['h1'])}</p><h1>{esc(c['sub'])}</h1><p class="lead">{esc(c['lead'])}</p></div></section>
+<section class="section band"><div class="wrap band-in"><div><p class="eyebrow">{esc(CUSTOM_AI[lang]['eyebrow'])}</p><h2>{esc(CUSTOM_AI[lang]['home_h'])}</h2><p>{esc(CUSTOM_AI[lang]['home_p'])}</p></div><p>{btn(lang, 'custom-ai-solutions', CUSTOM_AI[lang]['home_btn'])}</p></div></section>
 <section class="section"><div class="wrap"><h2>{esc(c['what'])}</h2>{blocks}<p style="margin-top:40px">{btn(lang, 'contact', c['cta'])}</p></div></section>"""
     return page(lang, "solutions", c["title"], c["desc"], body, url("es" if lang == "en" else "en", "solutions"))
 
@@ -281,6 +283,51 @@ def invest(lang):
     return page(lang, "investment-opportunities", c["title"], c["desc"], body, url("es" if lang == "en" else "en", "investment-opportunities"))
 
 
+def custom_ai(lang):
+    c = CUSTOM_AI[lang]
+    f = c["fields"]
+    slug = "custom-ai-solutions"
+    thanks = url(lang, UI[lang]["thanks_slug"])
+    probs = "".join(f"<li>{esc(p)}</li>" for p in c["problems"])
+    what = "".join(f'<div class="card"><h3>{esc(w["h"])}</h3><p>{esc(w["p"])}</p></div>' for w in c["what"])
+    steps = "".join(f'<li class="card"><h3>{esc(s["h"])}</h3><p>{esc(s["p"])}</p></li>' for s in c["steps"])
+    models = "".join(f'<div class="card"><h3>{esc(m["h"])}</h3><h4>{esc(m["tag"])}</h4><p>{esc(m["p"])}</p></div>' for m in c["models"])
+    why = "".join(f'<div><h3>{esc(w["h"])}</h3><p class="muted">{esc(w["p"])}</p></div>' for w in c["why"])
+    faq = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in c["faq"])
+    ld = {"@context": "https://schema.org", "@type": "Service", "name": c["h1"], "description": c["desc"],
+          "provider": {"@type": "Organization", "name": "Mind Booster", "url": BASE}, "areaServed": "ES",
+          "serviceType": "Custom AI solutions", "inLanguage": lang}
+    ld_faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in c["faq"]]}
+    head = (f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
+            f'<script type="application/ld+json">{json.dumps(ld_faq, ensure_ascii=False)}</script>')
+    body = f"""<section class="hero"><div class="wrap split">
+  <div><p class="eyebrow">{esc(c['eyebrow'])}</p><h1>{esc(c['h1'])}</h1><p class="lead">{esc(c['lead'])}</p>
+  <p class="actions"><a class="btn" href="#plan">{esc(c['cta'])}</a> <a class="btn ghost" href="#how">{esc(c['cta2'])}</a></p></div>
+  <img src="/assets/img/svc-software.jpg" alt="" width="800" height="600">
+</div></section>
+<section class="section soft"><div class="wrap"><h2>{esc(c['problem_h'])}</h2><ul class="checks">{probs}</ul></div></section>
+<section class="section"><div class="wrap"><h2>{esc(c['what_h'])}</h2><p class="muted" style="max-width:65ch">{esc(c['what_lead'])}</p><div class="grid c3" style="margin-top:24px">{what}</div></div></section>
+<section class="section soft" id="how"><div class="wrap"><h2>{esc(c['how_h'])}</h2><p class="muted">{esc(c['how_lead'])}</p><ol class="steps grid c3">{steps}</ol></div></section>
+<section class="section"><div class="wrap"><h2>{esc(c['models_h'])}</h2><div class="grid c3">{models}</div></div></section>
+<section class="section soft"><div class="wrap"><h2>{esc(c['why_h'])}</h2><div class="grid c4">{why}</div>
+  <h3 style="margin-top:40px">{esc(c['sectors_h'])}</h3><p class="muted" style="max-width:75ch">{esc(c['sectors'])}</p></div></section>
+<section class="section"><div class="wrap split" style="align-items:start">
+  <div><h2>{esc(c['faq_h'])}</h2><div class="faq">{faq}</div></div>
+  <form id="plan" class="card" name="custom-ai" method="POST" action="{thanks}" data-netlify="true" netlify-honeypot="company_url">
+    <input type="hidden" name="form-name" value="custom-ai">
+    <p class="hidden-field"><label>Leave empty <input name="company_url"></label></p>
+    <h2>{esc(c['form_h'])}</h2><p class="muted">{esc(c['form_lead'])}</p>
+    <div class="row">{field('name', f['name'], required=True, ac='name')}{field('email', f['email'], 'email', True, 'email')}</div>
+    <div class="row">{field('phone', f['phone'], 'tel', ac='tel')}{field('company', f['company'], ac='organization')}</div>
+    {field('sector', f['sector'])}
+    {field('need', f['need'], 'textarea', True, placeholder=f['need_ph'])}
+    <button class="btn" type="submit">{esc(f['submit'])}</button>
+  </form>
+</div></section>"""
+    return page(lang, slug, c["title"], c["desc"], body, url("es" if lang == "en" else "en", slug), "/assets/img/svc-software.jpg", head)
+
+
 def insights(lang):
     c = PAGES["insights"][lang]
     items = "".join(post_card(lang, p) for p in posts_for(lang))
@@ -341,7 +388,7 @@ def notfound():
 def main():
     built = []
     for lang in ("en", "es"):
-        for fn, slug in ((home, ""), (solutions, "solutions"), (about, "about"), (projects, "our-projects"),
+        for fn, slug in ((home, ""), (solutions, "solutions"), (custom_ai, "custom-ai-solutions"), (about, "about"), (projects, "our-projects"),
                          (contact, "contact"), (invest, "investment-opportunities"), (insights, "insights")):
             write(url(lang, slug) + ("/" if slug else ""), fn(lang))
             built.append(url(lang, slug))
